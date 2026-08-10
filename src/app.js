@@ -1,11 +1,11 @@
 const express = require("express");
 const cookies = require("cookie-parser");
-const connectDB = require("../src/Config/lib");
 const registerRoute = require("../src/Routes/authRoute");
 const productRoute = require("../src/Routes/ProductRoute");
 const messageAuth = require("./Routes/UserRoute")
 const app = express();
 const cors = require("cors");
+const config = require("./src/Config/config")
 
 
 app.use(express.json());
@@ -21,6 +21,28 @@ app.get("/", (req, res) => {
   res.send("API is running...");
 });
 
+let isConnected = false
+
+async function connectedToMongodb() {
+   try {
+    const conn = await mongoose.connect(config.MONGO_URI);
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
+    isConnected = true
+  } catch (error) {
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    // process.exit(1) yahan se hata diya hai — serverless (Vercel) mein
+    // process.exit() call karna poore function invocation ko crash kar deta hai.
+    // Error sirf log ho raha hai taake function zinda rahe aur agli request
+    // pe dobara connect try ho sake.
+  }
+}
+
+app.use((req, res , next) => {
+  if(!isConnected) {
+     connectedToMongodb()
+  } 
+  next()
+})
 
 app.use("/api/user" , messageAuth)
 
