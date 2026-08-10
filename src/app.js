@@ -5,7 +5,7 @@ const productRoute = require("../src/Routes/ProductRoute");
 const messageAuth = require("./Routes/UserRoute")
 const app = express();
 const cors = require("cors");
-const config = require("./src/Config/config")
+const config = require("../src/Config/config")
 
 
 app.use(express.json());
