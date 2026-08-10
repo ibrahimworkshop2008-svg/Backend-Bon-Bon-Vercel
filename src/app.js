@@ -6,7 +6,7 @@ const messageAuth = require("./Routes/UserRoute")
 const app = express();
 const cors = require("cors");
 const config = require("../src/Config/config")
-
+const mongoose = require("mongoose")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
