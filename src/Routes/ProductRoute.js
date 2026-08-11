@@ -7,8 +7,8 @@ const verifyToken = require("../middlewares/verifyToken");
 
 
 router.post("/create", verifyToken, AdminMiddleware, upload.array("images", 5), createProduct);
-router.get("/all", verifyToken, findALLProducts);
-router.get("/find/:id", verifyToken, findProductById);
+router.get("/all",  findALLProducts);
+router.get("/find/:id",  findProductById);
 router.delete("/delete/:id", verifyToken, AdminMiddleware, deleteProductById);
 router.put("/update/:id", verifyToken, AdminMiddleware, upload.array("images", 5), updateProductById);
 
