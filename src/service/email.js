@@ -12,13 +12,13 @@ const transporter = nodemailer.createTransport({
 });
 
 
-
-   try {
-   transporter.verify();
-  console.log("Server is ready to take our messages");
-} catch (err) {
-  console.error("Verification failed:", err);
-}
+transporter.verify()
+    .then(() => {
+        console.log("SMTP server is ready");
+    })
+    .catch((error) => {
+        console.error("SMTP verification failed:", error);
+    });
 
 
 

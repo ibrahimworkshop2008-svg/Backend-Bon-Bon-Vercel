@@ -44,7 +44,7 @@ const register = async (req, res) => {
       otpHash: hashOtp,
     });
 
-       try {
+      try {
       await sendEmail(email, "OTP Verified", `Your OTP code is ${otp}`, html);
     } catch (emailErr) {
       console.log(
@@ -54,7 +54,7 @@ const register = async (req, res) => {
 
     res.status(201).json({message: "User registered successfully. Please check your email for the OTP."});
 
-    } catch(error) {
+    }catch(error) {
         console.error(error);
         res.status(500).json({message: "Internal server error"});
     }
