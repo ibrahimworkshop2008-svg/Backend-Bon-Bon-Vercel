@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({
-  origin: "http://localhost:5173", // Replace with your frontend URL
+  origin: "https://frontend-bon-bon-vercel-giv1.vercel.app", // Replace with your frontend URL
   credentials: true, // Allow cookies to be sent
 }));
 app.use(cookies());
