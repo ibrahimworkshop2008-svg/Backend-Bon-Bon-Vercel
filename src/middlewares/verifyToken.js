@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const config = require("../Config/config");
-const User = require("../Models/UserModel");
+const User = require("../Models/authModel");
 
 const verifyToken = async (req, res, next) => {
   try {
