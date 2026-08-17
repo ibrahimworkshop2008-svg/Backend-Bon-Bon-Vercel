@@ -90,12 +90,17 @@ const createOrder = async (req, res) => {
       order,
     });
   } catch (error) {
-    console.error("Create order error:", error);
+    console.error("================================");
+  console.error("PLACE ORDER ERROR");
+  console.error("Message:", error.message);
+  console.error("Stack:", error.stack);
+  console.error("================================");
 
-    res.status(500).json({
-      success: false,
-      message: "Failed to place order",
-    });
+  return res.status(500).json({
+    success: false,
+    message: "Failed to place order",
+    error: error.message,
+  });
   }
 };
 
