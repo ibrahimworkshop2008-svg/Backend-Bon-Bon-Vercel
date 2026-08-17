@@ -9,6 +9,6 @@ const {
 const protect = require("../middlewares/AdminMiddleware");
 const VerifyToken = require("../middlewares/verifyToken")
 
-router.post("/orderplace", VerifyToken, protect, createOrder);
+router.post("/orderplace", VerifyToken , createOrder);
 
 module.exports = router;
