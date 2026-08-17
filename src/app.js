@@ -7,6 +7,7 @@ const app = express();
 const cors = require("cors");
 const config = require("../src/Config/config")
 const mongoose = require("mongoose")
+const orderPlace = require("./Routes/OrderRoute")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -45,7 +46,7 @@ app.use((req, res , next) => {
 })
 
 app.use("/api/user" , messageAuth)
-
+orderPlace.use("/api/order", orderPlace)
 app.use("/api/auth", registerRoute);
 app.use("/api/product", productRoute);
 
