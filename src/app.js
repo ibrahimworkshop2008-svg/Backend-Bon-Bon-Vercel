@@ -46,7 +46,7 @@ app.use((req, res , next) => {
 })
 
 app.use("/api/user" , messageAuth)
-orderPlace.use("/api/order", orderPlace)
+app.use("/api/order", orderPlace)
 app.use("/api/auth", registerRoute);
 app.use("/api/product", productRoute);
 
