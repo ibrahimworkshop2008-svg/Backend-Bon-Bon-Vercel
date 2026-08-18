@@ -298,6 +298,27 @@ const createOrder = async (req, res) => {
   }
 };
 
+
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+
+    return res.status(200).json({
+      success: true,
+      orders,
+    });
+  } catch (error) {
+    console.error("Error fetching orders:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch orders",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
-  createOrder
+  createOrder,
+   getAllOrders
 };
