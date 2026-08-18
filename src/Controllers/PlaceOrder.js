@@ -318,7 +318,96 @@ const getAllOrders = async (req, res) => {
   }
 };
 
+const mongoose = require("mongoose");
+const Order = require("../Models/Order");
+
+const updateOrderStatus = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { orderStatus } = req.body;
+
+    // ================= VALIDATE ORDER ID =================
+
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid order ID",
+      });
+    }
+
+    // ================= VALIDATE STATUS =================
+
+    const allowedStatuses = [
+      "pending",
+      "confirmed",
+      "shipped",
+      "delivered",
+      "cancelled",
+    ];
+
+    if (!orderStatus) {
+      return res.status(400).json({
+        success: false,
+        message: "Order status is required",
+      });
+    }
+
+    if (!allowedStatuses.includes(orderStatus)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid order status",
+      });
+    }
+
+    // ================= UPDATE ORDER =================
+
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      {
+        $set: {
+          orderStatus,
+        },
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    // ================= ORDER NOT FOUND =================
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+
+    // ================= SUCCESS =================
+
+    return res.status(200).json({
+      success: true,
+      message: "Order status updated successfully",
+      order,
+    });
+
+  } catch (error) {
+    console.error(
+      "Error updating order status:",
+      error
+    );
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to update order status",
+    });
+  }
+};
+
+
+
 module.exports = {
   createOrder,
-   getAllOrders
+   getAllOrders,
+   updateOrderStatus
 };
