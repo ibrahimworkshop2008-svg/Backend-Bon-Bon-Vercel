@@ -1,4 +1,3 @@
-
 const Order = require("../Models/OrderModel");
 const Product = require("../Models/ProductModel");
 
@@ -317,8 +316,6 @@ const getAllOrders = async (req, res) => {
   }
 };
 
-const mongoose = require("mongoose");
-const Order = require("../Models/Order");
 
 const updateOrderStatus = async (req, res) => {
   try {
