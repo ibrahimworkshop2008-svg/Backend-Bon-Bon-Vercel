@@ -401,9 +401,43 @@ const updateOrderStatus = async (req, res) => {
 };
 
 
+const getOrderID = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await Order.findById(orderId);
+
+    if (!order) {
+      return res.status(404).json({
+        success: false,
+        message: "Order not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Order fetched successfully",
+      order,
+    });
+  } catch (error) {
+    console.error("Get Order Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch order",
+      error: error.message,
+    });
+  }
+};
+
+
+
+
+
 
 module.exports = {
   createOrder,
    getAllOrders,
-   updateOrderStatus
+   updateOrderStatus,
+    getOrderID
 };

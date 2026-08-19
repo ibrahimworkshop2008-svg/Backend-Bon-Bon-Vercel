@@ -5,7 +5,8 @@ const router = express.Router();
 const {
   createOrder,
   getAllOrders,
-   updateOrderStatus
+   updateOrderStatus,
+   getOrderID
 } = require("../Controllers/PlaceOrder");
 
 const protect = require("../middlewares/AdminMiddleware");
@@ -14,6 +15,7 @@ const VerifyToken = require("../middlewares/verifyToken")
 router.post("/orderplace", VerifyToken , createOrder);
 router.get("/getOrders", VerifyToken, getAllOrders)
 router.get("/getOrdersAdmin", VerifyToken,protect, getAllOrders)
+router.get("/:orderId", VerifyToken,protect, getOrderID)
 router.patch(
   "/:orderId/status",
   VerifyToken,
